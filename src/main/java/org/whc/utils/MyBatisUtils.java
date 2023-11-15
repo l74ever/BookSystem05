@@ -11,7 +11,7 @@ import java.io.InputStream;
 public class MyBatisUtils {
     public static SqlSessionFactory getSqlSessionFactory() throws IOException {
         //注意此处路径不要写错
-        String resource = "config/mybatis-config.xml";
+        String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         return new SqlSessionFactoryBuilder().build(inputStream);
     }

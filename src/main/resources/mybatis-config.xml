@@ -3,25 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="mysql.properties"/>
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="driver" value="${driver}"/>
                 <!--数据库地址-->
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
+                <property name="url" value="${url}"/>
                 <!--数据库账号-->
-                <property name="username" value="root"/>
+                <property name="username" value="${username}"/>
                 <!--数据库密码-->
-                <property name="password" value="root"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <!--映射文件路径-->
-<!--        <mapper resource="mapper/EmployeeMapper.xml"/>-->
-<!--        <mapper resource="mapper/StudentMapper.xml"/>-->
-        <mapper resource="mapper/CategoryMapper.xml"/>
         <mapper resource="mapper/BookMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,5 +1,12 @@
+<%@ page import="java.util.List" %>
+<%@ page import="org.whc.pojo.Books" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.whc.utils.MyBatisUtils" %>
+<%@ page import="org.apache.ibatis.session.SqlSession" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%-- 加isELIgnored 防止jsp页面无法解析EL表达式 --%>
+<%@page isELIgnored="false" %>
 <html lang="en">
 
 <head>
@@ -8,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>书籍列表</title>
     <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 
 </head>
 
@@ -29,24 +36,29 @@
     <div class="row">
         <%--新增--%>
         <div class="col-md-4 column">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/allBook">&nbsp;全部书籍&nbsp;</a>
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/toAddBook">&nbsp;新增书籍&nbsp;</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/allBook.jsp">&nbsp;全部书籍&nbsp;</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/addBook.jsp">&nbsp;新增书籍&nbsp;</a>
         </div>
         <div class="col-md-4"></div>
         <%--查询--%>
         <div class="col-md-4 column" style="text-align: right">
-            <form action="${pageContext.request.contextPath}/queryBook" method="post" class="form-inline">
-                <div class="form-group">
-                    <%--                    <span style="color: red">未查询到任何结果</span>--%>
-                    <label>
-                        <input type="text" class="form-control" name="bookName" placeholder="请输入要查询的书籍名称">
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary" style="vertical-align: top">&nbsp;查询&nbsp;</button>
+            <form action="${pageContext.request.contextPath}/queryBook.jsp" method="post" class="form-inline">
+                <button type="submit" class="btn btn-primary" style="vertical-align: top">&nbsp;查询图书点此处&nbsp;</button>
             </form>
         </div>
 
     </div>
+    <%
+        SqlSession session1 = MyBatisUtils.getSession();
+
+
+        List<Books> books = session1.selectList("org.whc.mapper.BookMapper.queryAllBook");
+        for(Books book : books){
+            System.out.println(book.toString());
+        }
+        request.setAttribute("booksList",books);
+        session1.close();
+    %>
 
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -62,16 +74,17 @@
                 </thead>
 
                 <tbody>
-                <c:forEach var="book" items="${booksList}">
+                <c:forEach var="books" items="${booksList}">
+
                     <tr>
-                        <td>${book.bookID}</td>
-                        <td>${book.bookName}</td>
-                        <td>${book.bookCounts}</td>
-                        <td>${book.detail}</td>
+                        <td>${books.bookID}</td>
+                        <td>${books.bookName}</td>
+                        <td>${books.bookCounts}</td>
+                        <td>${books.detail}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/toUpdateBook/${book.bookID}">更改</a>
-                            |
-                            <a href="${pageContext.request.contextPath}/deleteBook/${book.bookID}">删除</a>
+                            <a href="${pageContext.request.contextPath}/updateBook.jsp/${books.bookID}">更改</a>
+
+                            <a href="${pageContext.request.contextPath}/deleteBook.jsp/${books.bookID}">删除</a>
                         </td>
                     </tr>
                 </c:forEach>

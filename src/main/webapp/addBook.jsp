@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%-- 加isELIgnored 防止jsp页面无法解析EL表达式 --%>
+<%@page isELIgnored="false" %>
 <html>
 <head>
     <title>新增书籍</title>
@@ -20,7 +21,7 @@
             </div>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/addBook" method="post">
+    <form action="${pageContext.request.contextPath}/addBook.jsp" method="post">
         <div class="form-group">
             <label for="bookName">书籍名称:</label>
             <input type="text" class="form-control" id="bookName" name="bookName" required>

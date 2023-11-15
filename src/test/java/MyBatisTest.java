@@ -2,7 +2,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.whc.mapper.BookMapper;
 import org.whc.pojo.Books;
-import org.whc.pojo.Category;
 import org.whc.utils.MyBatisUtils;
 
 import java.io.IOException;

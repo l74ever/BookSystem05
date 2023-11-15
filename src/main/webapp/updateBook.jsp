@@ -1,44 +1,63 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<html>
+<%@ page import="org.whc.pojo.Books" %>
+<%@ page import="org.whc.service.BookService" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%-- 加isELIgnored 防止jsp页面无法解析EL表达式 --%>
+<%@page isELIgnored="false" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>修改书籍</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+    <title>更改书籍信息</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
                 <h1>
-                    <small>修改书籍</small>
+                    <small>更改书籍信息</small>
                 </h1>
             </div>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/book/updateBook" method="post">
-        <div class="form-group">
-            <label for="bookName">书籍名称:</label>
-            <input type="text" class="form-control" id="bookName" name="bookName" required value="${books.bookName}">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form action="${pageContext.request.contextPath}/updateBook" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="bookID" class="col-sm-2 control-label">书籍编号：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="bookID" name="bookID" value="${book.bookID}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bookName" class="col-sm-2 control-label">书籍名称：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="bookName" name="bookName" value="${book.bookName}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bookCounts" class="col-sm-2 control-label">书籍数量：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="bookCounts" name="bookCounts" value="${book.bookCounts}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="detail" class="col-sm-2 control-label">书籍详情：</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="detail" name="detail">${book.detail}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary"> 提交 </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="bookCounts">书籍数量:</label>
-            <input type="text" class="form-control" id="bookCounts" name="bookCounts" required value="${books.bookCounts}">
-        </div>
-        <div class="form-group">
-            <label for="detail">书籍描述:</label>
-            <input type="text" class="form-control" id="detail" name="detail" required value="${books.detail}">
-        </div>
-        <div class="form-group">
-            <input type="hidden" value="${books.bookID}" name="bookID">
-            <input type="submit" class="form-control btn-primary" value="修改">
-        </div>
-    </form>
-
+    </div>
 </div>
 </body>
 </html>
