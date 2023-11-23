@@ -40,4 +40,42 @@ public class BookService {
         return messageModel;
     }
 
+    public int deleteBook(int bookID) throws IOException {
+        //调用mapper层的查询方法，通过bookID来删除图书对象
+        SqlSession session = MyBatisUtils.getSession();
+        BookMapper bookMapper = session.getMapper(BookMapper.class);
+        int success = bookMapper.deleteBook(bookID);
+        session.commit();
+        session.close();
+        return success;
+    }
+
+    public int updateBook(Books books) throws IOException {
+        //调用mapper层的查询方法，通过books对象来更新图书对象
+        SqlSession session = MyBatisUtils.getSession();
+        BookMapper bookMapper = session.getMapper(BookMapper.class);
+        int success = bookMapper.updateBook(books);
+        session.commit();
+        session.close();
+        return success;
+    }
+
+    public List<Books> allBook() throws IOException {
+        //调用mapper层的查询方法，通过books对象来更新图书对象
+        SqlSession session = MyBatisUtils.getSession();
+        BookMapper bookMapper = session.getMapper(BookMapper.class);
+        List<Books> booksList = bookMapper.queryAllBook();
+        session.close();
+        return booksList;
+    }
+
+    public int addBook(Books books) throws IOException {
+        //调用mapper层的查询方法，通过books对象来更新图书对象
+        SqlSession session = MyBatisUtils.getSession();
+        BookMapper bookMapper = session.getMapper(BookMapper.class);
+        int success = bookMapper.insertBook(books);
+        session.commit();
+        session.close();
+        return success;
+    }
 }

@@ -9,6 +9,7 @@
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 </head>
+
 <body>
 <div class="container">
 
@@ -21,23 +22,39 @@
             </div>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/addBook.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/addBook" method="post">
         <div class="form-group">
             <label for="bookName">书籍名称:</label>
-            <input type="text" class="form-control" id="bookName" name="bookName" required>
+            <input type="text" class="form-control" id="bookName" name="bookName" >
         </div>
         <div class="form-group">
             <label for="bookCounts">书籍数量:</label>
-            <input type="text" class="form-control" id="bookCounts" name="bookCounts" required>
+            <input type="text" class="form-control" id="bookCounts" name="bookCounts" >
         </div>
         <div class="form-group">
             <label for="detail">书籍描述:</label>
-            <input type="text" class="form-control" id="detail" name="detail" required>
+            <input type="text" class="form-control" id="detail" name="detail" >
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control btn-primary" value="添加">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('确定要添加该书籍吗？')"> 确认 </button>
+            <a href="allBook.jsp" class="btn btn-success">返回</a>
         </div>
     </form>
+
+    <%
+        String errorMessage = (String) session.getAttribute("Message");
+        if (errorMessage != null && !errorMessage.isEmpty()) {
+    %>
+    <script>
+        // 使用JavaScript弹出提示框显示错误信息
+        alert("<%= errorMessage %>");
+    </script>
+    <%
+            // 清除错误信息，避免重复弹窗
+            session.removeAttribute("Message");
+        }
+    %>
+
 
 </div>
 </body>

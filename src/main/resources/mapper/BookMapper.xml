@@ -13,7 +13,7 @@
     <delete id="deleteBook">
     DELETE
     FROM ssmbuild.books
-    WHERE bookID = #{bookId};
+    WHERE bookID = #{bookID};
     </delete>
 
     <!--修改-->

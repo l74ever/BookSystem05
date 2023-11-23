@@ -4,8 +4,6 @@ import org.whc.pojo.vo.MessageModel;
 import org.whc.service.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,20 +30,49 @@ public class UserServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1.接收客户端的请求（接收参数：姓名，密码）
-        String uname = request.getParameter("uname");
-        String upwd = request.getParameter("upwd");
-        //2.调用service层的方法，返回消息模型对象
-        MessageModel messageModel = userService.userLogin(uname,upwd);
-        //3，判断消息模型的状态码
-        if (messageModel.getCode() == 1){
-            //将消息模型中的用户消息设置到session作用域中，重定向跳转到index.jsp
-            request.getSession().setAttribute("user",messageModel.getObject());
-            response.sendRedirect("index.jsp");
-        }else {//失败
-            //将消息模型对象设置到request作用域中，请求转发跳转到login.jsp
-            request.setAttribute("messageModel",messageModel);
-            request.getRequestDispatcher("login.jsp").forward(request,response);
+        // 获取按钮的值
+        String loginButton = request.getParameter("login");
+        String registerButton = request.getParameter("register");
+
+        if (loginButton != null) {
+            //1.接收客户端的请求（接收参数：姓名，密码）
+            String uname = request.getParameter("uname");
+            String upwd = request.getParameter("upwd");
+            //2.调用service层的方法，返回消息模型对象
+            MessageModel messageModel = userService.userLogin(uname, upwd);
+            //3，判断消息模型的状态码
+            if (messageModel.getCode() == 1) {
+                //将消息模型中的用户消息设置到session作用域中，重定向跳转到index.jsp
+                request.getSession().setAttribute("user", messageModel.getObject());
+                response.sendRedirect("index.jsp");
+            } else {//失败
+                //将消息模型对象设置到request作用域中，请求转发跳转到login.jsp
+                request.setAttribute("messageModel", messageModel);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
         }
+//        else if (registerButton != null) {
+//            //跳转个注册页面
+//            response.sendRedirect("register.jsp");
+//            response.flushBuffer();
+//        }
+//        String rbtn = request.getParameter("rbtn");
+//        if (rbtn != null) {
+//            MessageModel messageModel = null;
+//
+//            // 从注册页面获取用户输入的注册信息
+//            String uName = request.getParameter("uName");
+//            String uPwd = request.getParameter("uPwd");
+//            // 调用 UserService 的注册方法
+//            messageModel = userService.registerUser(uName, uPwd);
+//
+//            if (messageModel.getCode()==1) {
+//                // 注册成功，跳转到注册成功页面
+//                response.sendRedirect("registerSuccess.jsp");
+//            } else {
+//                // 注册失败，跳转到注册失败页面
+//                response.sendRedirect("registerFail.jsp");
+//            }
+//        }
     }
 }

@@ -29,7 +29,7 @@ public class MyBatisTest {
     public void insertBookTest() throws IOException {
         SqlSession session = MyBatisUtils.getSession();
         Books books = new Books();
-        books.setBookID(4);
+//        books.setBookID(4);
         books.setBookName("Python");
         books.setBookCounts(200);
         books.setDetail("从入门到入牢");

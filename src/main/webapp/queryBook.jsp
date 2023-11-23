@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>查询书籍</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -54,7 +55,7 @@
                         <td>${book.detail}</td>
                     </tr>
                 </c:forEach>
-                <a href="allBook.jsp">返回</a>
+                <a href="allBook.jsp" class="btn btn-success">返回</a>
                 </tbody>
             </table>
         </div>

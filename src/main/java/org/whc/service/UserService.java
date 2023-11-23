@@ -26,6 +26,9 @@ import java.io.IOException;
  */
 public class UserService {
 
+    public UserService(){
+    }
+
     public static MessageModel userLogin(String uname, String upwd) throws IOException {
         MessageModel messageModel = new MessageModel();
 
@@ -39,7 +42,7 @@ public class UserService {
         if (StringUtil.isEmpty(uname)||StringUtil.isEmpty(upwd)){
             //将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
             messageModel.setCode(0);
-            messageModel.setMsg("用户姓名和密码不能为空！");
+            messageModel.setMsg("用户姓名错误！");
 
             return messageModel;
 
@@ -53,7 +56,7 @@ public class UserService {
         if (user == null){
             //将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
             messageModel.setCode(0);
-            messageModel.setMsg("用户姓名不能为空！");
+            messageModel.setMsg("用户姓名错误！");
 
             return messageModel;
         }
@@ -69,6 +72,59 @@ public class UserService {
         messageModel.setCode(1);
         messageModel.setMsg("登录成功");
         messageModel.setObject(user);
+        return messageModel;
+    }
+
+    /**
+     * 用户注册
+     *  1.参数的非空判断
+     *      如果参数为空
+     *      将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
+     *  2.调用mapper层的方法，判断用户名和密码是否符合规范，插入数据库
+     *  3.判断用户对象是否为空
+     *      如果为空，将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
+     *  4.判断数据库中查询的用户密码与前台传递过来的密码作比较
+     *      如果不相等，将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
+     *  5.登录成功，成功状态、提示信息、用户对象设置消息模型对象 return
+     */
+    public static MessageModel registerUser(String uname, String upwd) throws IOException {
+        MessageModel messageModel = new MessageModel();
+
+        //回显数据
+        User u = new User();
+        u.setUserName(uname);
+        u.setUserPwd(upwd);
+
+        //1.参数的非空判断
+        if (StringUtil.isEmpty(uname) || StringUtil.isEmpty(upwd)) {
+            //将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
+            messageModel.setCode(0);
+            messageModel.setMsg("用户姓名和密码不能为空！");
+            return messageModel;
+        }
+        //2.调用mapper层的查询方法，通过用户名查询用户对象判断是否重复，然后插入数据库
+        SqlSession session = MyBatisUtils.getSession();
+        UserMapper userMapper = session.getMapper(UserMapper.class);
+        User existinguser = userMapper.querUserByName(uname);
+        if (existinguser != null) {
+            //将状态码、提示信息、回显数据设置到消息模型对象中，返回消息模型对象
+            messageModel.setCode(0);
+            messageModel.setMsg("该用户已经被注册过了！");
+
+            return messageModel;
+        } else {
+            User newUser = new User();
+            newUser.setUserName(uname);
+            newUser.setUserPwd(upwd);
+
+            //插入数据库
+            userMapper.insertUser(newUser);
+            messageModel.setCode(1);
+            messageModel.setMsg("注册成功！！");
+            messageModel.setObject(newUser);
+        }
+        session.commit();
+        session.close();
         return messageModel;
     }
 }

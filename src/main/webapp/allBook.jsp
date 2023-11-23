@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.whc.pojo.Books" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="org.whc.utils.MyBatisUtils" %>
 <%@ page import="org.apache.ibatis.session.SqlSession" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>书籍列表</title>
     <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 
 </head>
 
@@ -35,13 +34,20 @@
 
     <div class="row">
         <%--新增--%>
-        <div class="col-md-4 column">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/allBook.jsp">&nbsp;全部书籍&nbsp;</a>
+        <div class="col-md-3 column">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/allBook.jsp">&nbsp;刷新全部书籍&nbsp;</a>
+        </div>
+        <div class="col-md-2 column">
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/addBook.jsp">&nbsp;新增书籍&nbsp;</a>
         </div>
-        <div class="col-md-4"></div>
+            <div class="col-md-2 column">
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/deleteBook.jsp">&nbsp;删除书籍&nbsp;</a>
+            </div>
+            <div class="col-md-2 column">
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/updateBook.jsp">&nbsp;更新书籍&nbsp;</a>
+            </div>
         <%--查询--%>
-        <div class="col-md-4 column" style="text-align: right">
+        <div class="col-md-3 column">
             <form action="${pageContext.request.contextPath}/queryBook.jsp" method="post" class="form-inline">
                 <button type="submit" class="btn btn-primary" style="vertical-align: top">&nbsp;查询图书点此处&nbsp;</button>
             </form>
@@ -69,7 +75,6 @@
                     <th>书籍名字</th>
                     <th>书籍数量</th>
                     <th>书籍详情</th>
-                    <th>操作</th>
                 </tr>
                 </thead>
 
@@ -81,11 +86,6 @@
                         <td>${books.bookName}</td>
                         <td>${books.bookCounts}</td>
                         <td>${books.detail}</td>
-                        <td>
-                            <a href="${pageContext.request.contextPath}/updateBook.jsp/${books.bookID}">更改</a>
-
-                            <a href="${pageContext.request.contextPath}/deleteBook.jsp/${books.bookID}">删除</a>
-                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -10,7 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>更改书籍信息</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -29,7 +30,7 @@
                 <div class="form-group">
                     <label for="bookID" class="col-sm-2 control-label">书籍编号：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="bookID" name="bookID" value="${book.bookID}" readonly>
+                        <input type="text" class="form-control" id="bookID" name="bookID" value="${book.bookID}" >
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,6 +54,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary"> 提交 </button>
+                        <br><a href="allBook.jsp" class="btn btn-success">返回</a>
                     </div>
                 </div>
             </form>

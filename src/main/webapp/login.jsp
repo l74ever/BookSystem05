@@ -11,20 +11,57 @@
 <html>
 <head>
     <title>用户登录</title>
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <!--font-awesome    -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome-4.7.0\css\font-awesome.min.css">
+    <%--引入Jquery的js文件--%>
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<div style="text-align: center">
-    <form action="login" method="post" id="loginForm">
-        姓名：<input type="text" name="uname" id="uname" value="${messageModel.object.userName}"><br>
-        密码：<input type="password" name="upwd" id="upwd" value="${messageModel.object.userPwd}">
-        <span id="msg" style="font-size: 12px;color: red">${messageModel.msg}</span><br>
-        <button type="button" id="loginBtn">登录</button>
-        <button type="button">注册</button>
-    </form>
+<div class="page login-page">
+    <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+            <div class="row">
+                <!-- Logo & Information Panel-->
+                <div class="col-lg-6">
+                    <div class="info d-flex align-items-center">
+                        <div class="content">
+                            <div class="logo">
+                                <h1>欢迎登录</h1>
+                            </div>
+                            <p>简易图书管理系统</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form Panel    -->
+                <div class="col-lg-6 bg-white">
+                    <div class="form d-flex align-items-center">
+                        <div class="content">
+                            <form method="post" action="${pageContext.request.contextPath}/login" class="form-validate" id="loginFrom">
+                                <div class="form-group">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    用户名：<input id="login-username" type="text" name="uname" required data-msg="请输入用户名" placeholder="用户名" value="${messageModel.object.userName}" class="input-material">
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                    密码：<input id="login-password" type="password" name="upwd" required data-msg="请输入密码" placeholder="密码" value="${messageModel.object.userPwd}" class="input-material">
+                                    <span id="msg" style="font-size: 12px;color: red">${messageModel.msg}</span><br>
+                                </div>
+                                <button id="login" name="login" type="submit" class="btn btn-primary">登录</button>
+                            </form>
+                            <br />
+                            <small>没有账号?</small><a href="register.jsp" class="signup">&nbsp;注册</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
-<%--引入Jquery的js文件--%>
-<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#loginBtn").click(function () {
