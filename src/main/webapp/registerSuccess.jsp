@@ -33,7 +33,7 @@
                                 <h1>恭喜你呀，注册成功了吧！！</h1>
                             </div>
                             <p>简易图书管理系统</p>
-                            <a href="login.jsp" class="signup">返回登录界面</a>
+                            <a href="login.jsp" class="btn btn-light">返回登录界面</a>
                         </div>
                     </div>
                 </div>
